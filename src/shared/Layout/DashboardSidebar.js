@@ -1,70 +1,68 @@
-import PropTypes from "prop-types";
-import { useEffect } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
-import { styled } from "@mui/material/styles";
-import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
+import { styled } from '@mui/material/styles';
+import { Button, Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // mock
-import account from "../../_mock/account";
+import account from '../../_mock/account';
 // hooks
-import useResponsive from "../../hooks/useResponsive";
+import useResponsive from '../../hooks/useResponsive';
 // components
-import Logo from "../../components/Logo";
-import Scrollbar from "../../components/Scrollbar";
-import NavSection from "../../components/NavSection.js";
+import Logo from '../../components/Logo';
+import Scrollbar from '../../components/Scrollbar';
+import NavSection from '../../components/NavSection.js';
 //
-import navConfig from "./NavConfig";
+import navConfig from './NavConfig';
 
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
 
-const RootStyle = styled("div")(({ theme }) => ({
-  [theme.breakpoints.up("lg")]: {
+const RootStyle = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: {
     flexShrink: 0,
-    width: DRAWER_WIDTH,
-  },
+    width: DRAWER_WIDTH
+  }
 }));
 
-const AccountStyle = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
+const AccountStyle = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
   padding: theme.spacing(2, 2.5),
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: theme.palette.grey[500_12],
+  backgroundColor: theme.palette.grey[500_12]
 }));
 
 // ----------------------------------------------------------------------
 
 DashboardSidebar.propTypes = {
   isOpenSidebar: PropTypes.bool,
-  onCloseSidebar: PropTypes.func,
+  onCloseSidebar: PropTypes.func
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
 
-  const isDesktop = useResponsive("up", "lg");
+  const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
     <Scrollbar
       sx={{
         height: 1,
-        "& .simplebar-content": {
+        '& .simplebar-content': {
           height: 1,
-          display: "flex",
-          flexDirection: "column",
-        },
-      }}
-    >
-      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
+          display: 'flex',
+          flexDirection: 'column'
+        }
+      }}>
+      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
         <Logo />
       </Box>
 
@@ -73,10 +71,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           <AccountStyle>
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
+              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                 {account.displayName}
               </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {account.role}
               </Typography>
             </Box>
@@ -85,8 +83,16 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box>
 
       <NavSection navConfig={navConfig} />
-
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ mt: 2, mb: 5, mx: 2.5 }}>
+        <Button
+          fullWidth
+          variant="contained"
+          color="error"
+          disableElevation
+          onClick={() => localStorage.clear()}>
+          Logout
+        </Button>
+      </Box>
     </Scrollbar>
   );
 
@@ -97,9 +103,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           open={isOpenSidebar}
           onClose={onCloseSidebar}
           PaperProps={{
-            sx: { width: DRAWER_WIDTH },
-          }}
-        >
+            sx: { width: DRAWER_WIDTH }
+          }}>
           {renderContent}
         </Drawer>
       )}
@@ -111,11 +116,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           PaperProps={{
             sx: {
               width: DRAWER_WIDTH,
-              bgcolor: "background.default",
-              borderRightStyle: "dashed",
-            },
-          }}
-        >
+              bgcolor: 'background.default',
+              borderRightStyle: 'dashed'
+            }
+          }}>
           {renderContent}
         </Drawer>
       )}

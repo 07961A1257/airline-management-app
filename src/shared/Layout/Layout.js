@@ -1,10 +1,10 @@
-import * as React from "react";
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@mui/styles';
 /**Components */
-import Topbar from "./Topbar";
-import NavDrawer from "./NavDrawer";
+import Topbar from './Topbar';
+import NavDrawer from './NavDrawer';
 
 const drawerWidth = 240;
 // Creating own styles rules //
@@ -13,67 +13,65 @@ const useStyles = (props) =>
   makeStyles((theme) => {
     return {
       root: {
-        display: "flex",
+        display: 'flex'
       },
       page: {
         background: theme.palette.background.default,
-        width: "100%",
+        width: '100%',
         flexGrow: 1,
-        minHeight: "100vh",
-        height: "100%",
-        padding: theme.spacing(3),
+        minHeight: '100vh',
+        height: '100%',
+        padding: theme.spacing(3)
       },
       toolbar: theme.mixins.toolbar,
       drawer: {
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up('sm')]: {
           width: drawerWidth,
-          flexShrink: 0,
-        },
+          flexShrink: 0
+        }
       },
       navDrawer: {
         width: drawerWidth,
         // Page size nave drawer options
-        [theme.breakpoints.down("md")]: {
+        [theme.breakpoints.down('md')]: {
           width: drawerWidth,
           flexShrink: 0,
-          display: "none",
+          display: 'none'
         },
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up('md')]: {
           width: drawerWidth,
-          flexShrink: 0,
-        },
+          flexShrink: 0
+        }
       },
       drawerPaper: {
-        width: drawerWidth,
+        width: drawerWidth
       },
       appBar: {
-        [theme.breakpoints.up("md")]: {
-          width: props
-            ? `calc(100% - ${drawerWidth}px) !important`
-            : "100% !important",
+        [theme.breakpoints.up('md')]: {
+          width: props ? `calc(100% - ${drawerWidth}px) !important` : '100% !important'
         },
-        zIndex: theme.zIndex.drawer + 1,
+        zIndex: theme.zIndex.drawer + 1
       },
       menuButton: {
         marginRight: theme.spacing(2),
-        [theme.breakpoints.up("md")]: {
-          display: "none !important",
-        },
+        [theme.breakpoints.up('md')]: {
+          display: 'none !important'
+        }
       },
       closeMenuButton: {
-        marginRight: "auto !important",
-        marginLeft: 0 + "!important",
+        marginRight: 'auto !important',
+        marginLeft: 0 + '!important'
       },
       title: {
-        padding: theme.spacing(2),
-      },
+        padding: theme.spacing(2)
+      }
     };
   });
 // End of creating own styles rules //
 
 const Layout = ({
   children,
-  logOutApp,
+  logOutApp
   // auth: { isAuthenticated, users: { isAdmin = false } = {} },
 }) => {
   const isAuthenticated = true;
@@ -85,7 +83,7 @@ const Layout = ({
   const handelLogOut = () => {
     // logOutApp();
     // toast.success("Logged Out Successfully");
-    navigate("/");
+    navigate('/');
   };
 
   return (

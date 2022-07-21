@@ -1,16 +1,10 @@
-import * as React from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+/* eslint-disable react/prop-types */
+import * as React from 'react';
+import { AppBar, Toolbar, IconButton, Typography, Menu, MenuItem } from '@mui/material';
 
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { format } from "date-fns";
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { format } from 'date-fns';
 
 const Topbar = ({ appBar, mobileOpen, menuButton, auth = true, logOutApp }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,15 +25,14 @@ const Topbar = ({ appBar, mobileOpen, menuButton, auth = true, logOutApp }) => {
             aria-label="Open drawer"
             edge="start"
             onClick={mobileOpen}
-            className={menuButton}
-          >
+            className={menuButton}>
             <MenuIcon />
           </IconButton>
         )}
         <Typography sx={{ flexGrow: 1 }} color="secondary">
           {auth
             ? `
-         Last logged In ${format(new Date(), "MMMM d, yyyy")}
+         Last logged In ${format(new Date(), 'MMMM d, yyyy')}
          `
             : `Welcome to Airline Services`}
         </Typography>
@@ -50,25 +43,23 @@ const Topbar = ({ appBar, mobileOpen, menuButton, auth = true, logOutApp }) => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               color="inherit"
-              onClick={handleMenu}
-            >
+              onClick={handleMenu}>
               <AccountCircleIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right'
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right'
               }}
               open={Boolean(anchorEl)}
-              onClose={() => setAnchorEl(null)}
-            >
+              onClose={() => setAnchorEl(null)}>
               <MenuItem onClick={() => handleClose(true)}>Log Out</MenuItem>
             </Menu>
           </>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   Drawer,
   IconButton,
@@ -7,13 +7,13 @@ import {
   Paper,
   ListItemIcon,
   List,
-  Typography,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useTheme } from "@emotion/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import menuItems from "../../config/menuItems";
-import PropTypes from "prop-types";
+  Typography
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from '@emotion/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import menuItems from '../../config/menuItems';
+import PropTypes from 'prop-types';
 
 const NavDrawer = ({
   navDrawer,
@@ -23,7 +23,7 @@ const NavDrawer = ({
   mobileOpen,
   setMobileOpen,
   drawerPaper,
-  currentUserRole,
+  currentUserRole
 }) => {
   const theme = useTheme();
   const navigation = useNavigate();
@@ -35,20 +35,16 @@ const NavDrawer = ({
   };
   return (
     <nav className={navDrawer}>
-      <Paper
-        sx={{ display: { xs: "block", sm: "none" } }}
-        className={drawerPaper}
-      >
+      <Paper sx={{ display: { xs: 'block', sm: 'none' } }} className={drawerPaper}>
         <Drawer
           className={drawer}
           variant="temporary"
           open={mobileOpen}
           onClose={setMobileOpen}
-          anchor={theme.direction === "rtl" ? "right" : "left"}
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-        >
+            keepMounted: true // Better open performance on mobile.
+          }}>
           <IconButton onClick={setMobileOpen} className={closeMenuButton}>
             <CloseIcon />
           </IconButton>
@@ -60,8 +56,7 @@ const NavDrawer = ({
               <ListItemButton
                 key={item.id}
                 onClick={() => navigation(item.path)}
-                selected={location.pathname === item.path}
-              >
+                selected={location.pathname === item.path}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.name} />
               </ListItemButton>
@@ -69,14 +64,13 @@ const NavDrawer = ({
           </List>
         </Drawer>
       </Paper>
-      <Paper sx={{ display: { xs: "none", sm: "block", md: "block" } }}>
+      <Paper sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}>
         <Drawer
           className={drawer}
           variant="permanent"
           classes={{
-            paper: drawerPaper,
-          }}
-        >
+            paper: drawerPaper
+          }}>
           <div>
             <Typography variant="h5" className={title}>
               Airline BNB
@@ -87,8 +81,7 @@ const NavDrawer = ({
               <ListItemButton
                 key={item.id}
                 onClick={() => navigation(item.path)}
-                selected={location.pathname === item.path}
-              >
+                selected={location.pathname === item.path}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.name} />
               </ListItemButton>
@@ -108,7 +101,7 @@ NavDrawer.propTypes = {
   closeMenuButton: PropTypes.string.isRequired,
   mobileOpen: PropTypes.bool.isRequired,
   setMobileOpen: PropTypes.func.isRequired,
-  drawerPaper: PropTypes.string.isRequired,
+  drawerPaper: PropTypes.string.isRequired
 };
 
 export default NavDrawer;

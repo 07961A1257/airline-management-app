@@ -1,12 +1,14 @@
-import PropTypes from "prop-types";
-import { Helmet } from "react-helmet-async";
-import { forwardRef } from "react";
+/* eslint-disable react/display-name */
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet-async';
+import { forwardRef } from 'react';
 // @mui
-import { Box } from "@mui/material";
+import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-const Page = forwardRef(({ children, title = "", meta, ...other }, ref) => (
+const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Helmet>
       <title>{`${title} | Minimal-UI`}</title>
@@ -22,7 +24,7 @@ const Page = forwardRef(({ children, title = "", meta, ...other }, ref) => (
 Page.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
-  meta: PropTypes.node,
+  meta: PropTypes.node
 };
 
 export default Page;
