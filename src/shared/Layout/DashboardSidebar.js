@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { Button, Box, Link, Drawer, Typography, Avatar } from '@mui/material';
@@ -15,6 +16,7 @@ import NavSection from '../../components/NavSection.js';
 //
 import navConfig from './NavConfig';
 
+import { logOutApp } from '../../redux/actions/userAction';
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -36,14 +38,10 @@ const AccountStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-DashboardSidebar.propTypes = {
-  isOpenSidebar: PropTypes.bool,
-  onCloseSidebar: PropTypes.func
-};
-
-export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+const DashboardSidebar = ({ auth, isOpenSidebar, onCloseSidebar }) => {
   const { pathname } = useLocation();
-
+  const navigate = useNavigate();
+  const { users } = auth;
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -51,6 +49,16 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       onCloseSidebar();
     }
   }, [pathname]);
+
+  const handleLogout = () => {
+    // eslint-disable-next-line no-debugger
+    // debugger;
+    // e.preventDefault();
+    logOutApp();
+    localStorage.clear();
+    navigate('/login');
+    window.location.reload();
+  };
 
   const renderContent = (
     <Scrollbar
@@ -72,7 +80,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {users && users?.name}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {account.role}
@@ -84,12 +92,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <NavSection navConfig={navConfig} />
       <Box sx={{ mt: 2, mb: 5, mx: 2.5 }}>
-        <Button
-          fullWidth
-          variant="contained"
-          color="error"
-          disableElevation
-          onClick={() => localStorage.clear()}>
+        <Button fullWidth variant="contained" color="error" disableElevation onClick={handleLogout}>
           Logout
         </Button>
       </Box>
@@ -125,4 +128,21 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       )}
     </RootStyle>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = {
+  logOutApp
+};
+
+DashboardSidebar.propTypes = {
+  isOpenSidebar: PropTypes.bool,
+  onCloseSidebar: PropTypes.func,
+  logOutApp: PropTypes.func.isRequired,
+  auth: PropTypes.object
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardSidebar);

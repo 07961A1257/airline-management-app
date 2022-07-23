@@ -1,22 +1,25 @@
-import {
-  CREATE_ANCILLARY_SUCCESS,
-  LOAD_ANCILLARY_SUCCESS,
-  DELETE_PASSENGER_OPTIMISTIC,
-  UPDATE_ANCILLARY_SUCCESS
-} from '../actions/actionTypes';
+import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
-export default function ancillaryReducer(state = initialState.ancillaryLists, { type, payload }) {
-  switch (type) {
-    case LOAD_ANCILLARY_SUCCESS:
-      return payload;
-    case CREATE_ANCILLARY_SUCCESS:
-      return [...state, { ...payload }];
-    case UPDATE_ANCILLARY_SUCCESS:
-      return state.map((ancillary) => (ancillary.id === payload.id ? payload : ancillary));
-    case DELETE_PASSENGER_OPTIMISTIC:
-      return state.filter((ancillary) => ancillary.id !== payload);
+const ancillaryReducer = (state = initialState.ancillaryLists, action) => {
+  switch (action.type) {
+    case types.CREATE_ANCILLARY_SUCCESS:
+      return [...state, { ...action }];
+
+    case types.UPDATE_ANCILLARY_SUCCESS:
+      return state.map((ancillary) =>
+        ancillary.id === action.payload.id ? action.payload : ancillary
+      );
+
+    case types.LOAD_ANCILLARY_SUCCESS:
+      return action.payload;
+
+    case types.DELETE_ANCILLARY_OPTIMISTIC:
+      return state.filter((ancillary) => ancillary.id !== action.payload.id);
+
     default:
       return state;
   }
-}
+};
+
+export default ancillaryReducer;

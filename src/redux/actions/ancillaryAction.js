@@ -1,51 +1,67 @@
-import {
-  loadAncillaryLists,
-  removeAncillaryService,
-  saveAncillaryLists
-} from '../../api/ancillaryService';
-import { beginApiCall, apiCallError } from './apiStatusAction';
-import {
-  CREATE_ANCILLARY_SUCCESS,
-  DELETE_PASSENGER_OPTIMISTIC,
-  LOAD_ANCILLARY_SUCCESS,
-  UPDATE_ANCILLARY_SUCCESS
-} from './actionTypes';
+import * as types from './actionTypes';
+import * as AncillaryServiceApi from '../../api/ancillaryService';
+import { beginApiCall, apiCallError } from './apiStatusActions';
 
+/** Reducers */
 export const loadAncillaryListOnLoad = (payload) => {
-  return { type: LOAD_ANCILLARY_SUCCESS, payload };
+  return { type: types.LOAD_ANCILLARY_SUCCESS, payload };
 };
 
-export const loadAncillaryList = () => (dispatch) => {
-  dispatch(beginApiCall());
-  return loadAncillaryLists()
-    .then((pRes) => {
-      dispatch(loadAncillaryListOnLoad(pRes.data));
-    })
-    .catch((err) => {
-      console.error('Something went wrong', err);
-      dispatch(apiCallError(err));
-    });
+export const updateAncillaryList = (payload) => {
+  return {
+    type: types.UPDATE_ANCILLARY_SUCCESS,
+    payload
+  };
 };
 
-export const deleteAncillaryDetails = (id) => (dispatch) => {
-  return removeAncillaryService(id).then(() => {
-    dispatch({ type: DELETE_PASSENGER_OPTIMISTIC, payload: id });
-  });
+export const createAncillaryList = (payload) => {
+  return {
+    type: types.CREATE_ANCILLARY_SUCCESS,
+    payload
+  };
 };
 
-export const saveUpdateAncillaryList = (service) => (dispatch) => {
-  dispatch(beginApiCall());
-  return saveAncillaryLists(service)
-    .then((pRes) => {
-      if (service.id) {
-        dispatch({ type: UPDATE_ANCILLARY_SUCCESS, payload: pRes.data });
-      } else {
-        dispatch({ type: CREATE_ANCILLARY_SUCCESS, payload: pRes.data });
-      }
-      return pRes.data;
-    })
-    .catch((err) => {
-      console.error('Something went wrong', err);
-      dispatch(apiCallError(err));
-    });
+export const deleteAncillaryOptimistic = (payload) => {
+  return {
+    type: types.DELETE_ANCILLARY_OPTIMISTIC,
+    payload
+  };
+};
+
+/** Reducers */
+
+export const loadAncillaryList = () => {
+  return function (dispatch) {
+    dispatch(beginApiCall());
+    return AncillaryServiceApi.loadAncillaryLists()
+      .then((response) => {
+        dispatch(loadAncillaryListOnLoad(response));
+      })
+      .catch((err) => {
+        console.error('Something went wrong', err);
+        dispatch(apiCallError(err));
+      });
+  };
+};
+
+export const saveUpdateAncillaryList = (service) => {
+  return function (dispatch) {
+    dispatch(beginApiCall());
+    return AncillaryServiceApi.saveAncillaryLists(service)
+      .then((response) => {
+        if (service.id) dispatch(updateAncillaryList(response));
+        else dispatch(createAncillaryList(response));
+      })
+      .catch((err) => {
+        console.error('Something went wrong', err);
+        dispatch(apiCallError(err));
+      });
+  };
+};
+
+export const deleteAncillaryDetails = (id) => {
+  return function (dispatch) {
+    dispatch(deleteAncillaryOptimistic(id));
+    return AncillaryServiceApi.removeAncillaryService(id);
+  };
 };

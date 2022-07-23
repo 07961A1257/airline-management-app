@@ -2,14 +2,15 @@ import {
   deletePassengerById,
   getAllPassengerList,
   savePassengerDetails
-} from '../../Api/passengerServic';
-import { apiCallError, beginApiCall } from './apiStatusAction';
+} from '../../Api/passengerService';
+
 import {
   LOAD_PASSENGERS_SUCCESS,
   CREATE_PASSENGER_SUCCESS,
   UPDATE_PASSENGER_SUCCESS,
   DELETE_PASSENGER_OPTIMISTIC
-} from './storeActionTypes';
+} from './actionTypes';
+import { apiCallError, beginApiCall } from './apiStatusActions';
 
 export function loadPassengersSuccess(payload) {
   return { type: LOAD_PASSENGERS_SUCCESS, payload };

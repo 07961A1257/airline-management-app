@@ -20,17 +20,17 @@ const navConfig = [
   {
     title: 'ancillary services',
     path: '/ancillary-services',
-    icon: getIcon('eva:shopping-bag-fill')
+    icon: getIcon('icons8:services')
   },
   {
     title: 'check in',
     path: '/check-in',
-    icon: getIcon('eva:file-text-fill')
+    icon: getIcon('icon-park-outline:check-in')
   },
   {
     title: 'in flight',
     path: '/in-flight',
-    icon: getIcon('eva:file-text-fill')
+    icon: getIcon('tabler:plane-inflight')
   }
   // {
   //   title: 'logout',

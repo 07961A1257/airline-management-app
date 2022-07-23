@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
+import RequiredAuth from './pages/Login/RequiredAuth';
 // layouts
 import DashboardLayout from './shared/Layout';
 import LogoOnlyLayout from './shared/Layout/LogoOnlyLayout';
@@ -27,14 +28,60 @@ export default function Router() {
   return useRoutes([
     {
       path: '/',
-      element: <DashboardLayout />,
+      element: (
+        <RequiredAuth>
+          <DashboardLayout />
+        </RequiredAuth>
+      ),
       children: [
-        { path: '/', element: <DashboardPage /> },
-        { path: '/dashboard', element: <DashboardPage /> },
-        { path: '/passenger-list', element: <PassengerList /> },
-        { path: '/ancillary-services', element: <AncillaryService /> },
-        { path: '/check-in', element: <PassengerCheckInPage /> },
-        { path: '/in-flight', element: <PassengerInFlightPage /> }
+        {
+          path: '/',
+          element: (
+            <RequiredAuth>
+              <DashboardPage />
+            </RequiredAuth>
+          )
+        },
+        {
+          path: '/dashboard',
+          element: (
+            <RequiredAuth>
+              <DashboardPage />
+            </RequiredAuth>
+          )
+        },
+        {
+          path: '/passenger-list',
+          element: (
+            <RequiredAuth>
+              <PassengerList />
+            </RequiredAuth>
+          )
+        },
+        {
+          path: '/ancillary-services',
+          element: (
+            <RequiredAuth>
+              <AncillaryService />
+            </RequiredAuth>
+          )
+        },
+        {
+          path: '/check-in',
+          element: (
+            <RequiredAuth>
+              <PassengerCheckInPage />
+            </RequiredAuth>
+          )
+        },
+        {
+          path: '/in-flight',
+          element: (
+            <RequiredAuth>
+              <PassengerInFlightPage />
+            </RequiredAuth>
+          )
+        }
       ]
     },
     {

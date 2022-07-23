@@ -1,6 +1,6 @@
 const getLocalStorage = () => {
   const localStorage = window.localStorage;
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem('user'));
   return user;
 };
 
@@ -10,6 +10,7 @@ const initialState = {
   apiCallsInProgress: 0,
   ancillaryLists: [],
   passengers: [],
+  checkInPassengers: []
 };
 
 export default initialState;

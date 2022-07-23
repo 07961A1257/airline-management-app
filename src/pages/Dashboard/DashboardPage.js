@@ -4,7 +4,7 @@ import { Paper, Grid, Typography, Divider } from '@mui/material';
 import { Container } from '@mui/system';
 import { PropTypes } from 'prop-types';
 
-const DashboardPage = () => {
+const DashboardPage = ({ auth: { users } }) => {
   return (
     <Container>
       <Grid container spacing={3}>
@@ -15,7 +15,7 @@ const DashboardPage = () => {
               margin: 3
             }}>
             <Typography color="textSecondary" textAlign="center" variant="h4" component="h1">
-              Welcome {'Chaitanya'}
+              Welcome {users?.name}
             </Typography>
             <Divider
               variant="inset"
@@ -26,7 +26,7 @@ const DashboardPage = () => {
             <Typography variant="body1" textAlign="center" component="p">
               You are successfully Logged into the system. You access is settled as a{' '}
               <strong>
-                <em>{'Admin'}</em>
+                <em>{users[0].isAdmin ? 'Admin' : 'User'}</em>
               </strong>{' '}
               role.
             </Typography>

@@ -11,16 +11,16 @@ Relevant source code: https://github.com/typicode/json-server/blob/master/src/cl
 */
 
 /* eslint-disable no-console */
-const jsonServer = require("json-server");
+const jsonServer = require('json-server');
 const server = jsonServer.create();
-const path = require("path");
+const path = require('path');
 // eslint-disable-next-line no-undef
-const router = jsonServer.router(path.join(__dirname, "db.json"));
+const router = jsonServer.router(path.join(__dirname, 'db.json'));
 
 // Can pass a limited number of options to this to override (some) defaults. See https://github.com/typicode/json-server#api
 const middlewares = jsonServer.defaults({
   // Display json-server's built in homepage when json-server starts.
-  static: "node_modules/json-server/dist",
+  static: 'node_modules/json-server/dist'
 });
 
 // Set default middlewares (logger, static, cors and no-cache)
@@ -38,14 +38,14 @@ server.use(function (req, res, next) {
 
 // Add createdAt to all POSTS
 server.use((req, res, next) => {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     req.body.createdAt = Date.now();
   }
   // Continue to JSON Server router
   next();
 });
 
-server.post("/ancillaryServices/", function (req, res, next) {
+server.post('/ancillaryServices/', function (req, res, next) {
   const error = validateAncillaryService(req.body);
   if (error) {
     res.status(400).send(error);
@@ -54,7 +54,7 @@ server.post("/ancillaryServices/", function (req, res, next) {
   }
 });
 
-server.post("/checkInPassengers/", function (req, res, next) {
+server.post('/checkInPassengers/', function (req, res, next) {
   const error = validateCheckInPassenger(req.body);
   if (error) {
     res.status(400).send(error);
@@ -73,21 +73,22 @@ server.listen(port, () => {
 });
 
 // Centralized logic
+// eslint-disable-next-line no-unused-vars
 function validatePassenger(passenger) {
-  if (!passenger.name) return "Name is required.";
-  if (!passenger.passport) return "Passport is required.";
-  if (!passenger.address) return "Address is required.";
-  return "";
+  if (!passenger.name) return 'Name is required.';
+  if (!passenger.passport) return 'Passport is required.';
+  if (!passenger.address) return 'Address is required.';
+  return '';
 }
 
 function validateAncillaryService(ancillaryService) {
-  if (!ancillaryService.flight) return "Flight is required.";
-  if (!ancillaryService.service) return "Service is required.";
-  return "";
+  if (!ancillaryService.flight) return 'Flight is required.';
+  if (!ancillaryService.service) return 'Service is required.';
+  return '';
 }
 
 function validateCheckInPassenger(checkInPassenger) {
-  if (!checkInPassenger.flight) return "Flight is required.";
-  if (!checkInPassenger.passenger) return "Passenger is required.";
-  return "";
+  if (!checkInPassenger.flight) return 'Flight is required.';
+  if (!checkInPassenger.passenger) return 'Passenger is required.';
+  return '';
 }
