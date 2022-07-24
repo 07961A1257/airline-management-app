@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
-import RequiredAuth from './pages/Login/RequiredAuth';
+import ProtectedRoute from './pages/Login/ProtectedRoute';
 // layouts
 import DashboardLayout from './shared/Layout';
 import LogoOnlyLayout from './shared/Layout/LogoOnlyLayout';
@@ -29,57 +29,57 @@ export default function Router() {
     {
       path: '/',
       element: (
-        <RequiredAuth>
+        <ProtectedRoute>
           <DashboardLayout />
-        </RequiredAuth>
+        </ProtectedRoute>
       ),
       children: [
         {
           path: '/',
           element: (
-            <RequiredAuth>
+            <ProtectedRoute>
               <DashboardPage />
-            </RequiredAuth>
+            </ProtectedRoute>
           )
         },
         {
           path: '/dashboard',
           element: (
-            <RequiredAuth>
+            <ProtectedRoute>
               <DashboardPage />
-            </RequiredAuth>
+            </ProtectedRoute>
           )
         },
         {
           path: '/passenger-list',
           element: (
-            <RequiredAuth>
+            <ProtectedRoute>
               <PassengerList />
-            </RequiredAuth>
+            </ProtectedRoute>
           )
         },
         {
           path: '/ancillary-services',
           element: (
-            <RequiredAuth>
+            <ProtectedRoute>
               <AncillaryService />
-            </RequiredAuth>
+            </ProtectedRoute>
           )
         },
         {
           path: '/check-in',
           element: (
-            <RequiredAuth>
+            <ProtectedRoute>
               <PassengerCheckInPage />
-            </RequiredAuth>
+            </ProtectedRoute>
           )
         },
         {
           path: '/in-flight',
           element: (
-            <RequiredAuth>
+            <ProtectedRoute>
               <PassengerInFlightPage />
-            </RequiredAuth>
+            </ProtectedRoute>
           )
         }
       ]

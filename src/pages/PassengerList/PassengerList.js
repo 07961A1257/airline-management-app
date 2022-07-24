@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import DataGrid, {
   Scrolling,
   Pager,
@@ -9,28 +10,24 @@ import DataGrid, {
   SearchPanel
 } from 'devextreme-react/data-grid';
 import 'devextreme/dist/css/dx.material.teal.dark.css';
-import Axios from '../../config/api.config';
 import { Typography } from '@mui/material';
+import { loadCheckInPassengers } from '../../redux/actions/checkInPassengerAction';
 
 const PassengerList = () => {
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const passengers = useSelector((state) => console.log(state) || state.passengers);
   const allowedPageSizes = [10, 20, 30, 40, 50];
-  const fetchData = async () => {
-    await Axios.get('/passengers').then((response) => {
-      if (response.data) {
-        setData(response.data);
-      }
-    });
-  };
-  useEffect(() => {
-    fetchData();
+  console.log(passengers);
+
+  React.useEffect(() => {
+    dispatch(loadCheckInPassengers());
   }, []);
 
   return (
     <div>
       <Typography variant="h3">Passengers List</Typography>
       <DataGrid
-        dataSource={data}
+        dataSource={passengers}
         showBorders={true}
         allowColumnReordering={true}
         allowColumnResizing={true}

@@ -1,43 +1,48 @@
-import * as types from '../actions/actionTypes';
 import * as checkInPassengerAPI from '../../api/checkInPassengerService';
-import { apiCallError } from './apiStatusActions';
+import * as types from '../actions/actionTypes';
+import { beginApiCall, apiCallError } from './apiStatusActions';
 
-export function loadCheckInPassengersSuccess(checkInPassengers) {
+export function loadCheckInPassengersSuccess(payload) {
   return {
     type: types.LOAD_CHECKIN_PASSENGERS_SUCCESS,
-    checkInPassengers
+    payload
   };
 }
 
-export function createCheckInPassengerSuccess(checkInPassenger) {
+export function createCheckInPassengerSuccess(payload) {
   return {
     type: types.CREATE_CHECKIN_PASSENGER_SUCCESS,
-    checkInPassenger
+    payload
   };
 }
 
-export function updateCheckInPassengerSuccess(checkInPassenger) {
+export function updateCheckInPassengerSuccess(payload) {
   return {
     type: types.UPDATE_CHECKIN_PASSENGER_SUCCESS,
-    checkInPassenger
+    payload
   };
 }
 
-export function deleteCheckInPassengerOptimistic(checkInPassenger) {
+export function deleteCheckInPassengerOptimistic(payload) {
   return {
     type: types.DELETE_CHECKIN_PASSENGER_OPTIMISTIC,
-    checkInPassenger
+    payload
   };
 }
 
 export function loadCheckInPassengers() {
   return function (dispatch) {
+    // eslint-disable-next-line no-debugger
+    debugger;
+    dispatch(beginApiCall());
     return checkInPassengerAPI
       .getCheckInPassengers()
-      .then((checkInPassengers) => {
-        dispatch(loadCheckInPassengersSuccess(checkInPassengers));
+      .then((response) => {
+        console.log(response, 'loadCheckInPassengers');
+        dispatch(loadCheckInPassengersSuccess(response));
       })
       .catch((error) => {
+        console.error('Something went wrong', error);
         dispatch(apiCallError(error));
       });
   };

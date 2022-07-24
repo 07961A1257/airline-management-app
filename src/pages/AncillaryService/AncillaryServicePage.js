@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
-import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { DataGrid, Column, Editing, Scrolling, RequiredRule } from 'devextreme-react/data-grid';
 import 'devextreme/dist/css/dx.material.teal.dark.css';

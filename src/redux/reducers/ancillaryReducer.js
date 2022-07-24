@@ -1,7 +1,9 @@
+/* eslint-disable no-debugger */
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
 const ancillaryReducer = (state = initialState.ancillaryLists, action) => {
+  debugger;
   switch (action.type) {
     case types.CREATE_ANCILLARY_SUCCESS:
       return [...state, { ...action }];

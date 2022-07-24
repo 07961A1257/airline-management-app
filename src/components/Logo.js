@@ -14,7 +14,7 @@ Logo.propTypes = {
 export default function Logo({ disabledLink = false, sx }) {
   const logo = (
     <Box sx={{ width: 40, height: 40, ...sx }}>
-      <AirlinesIcon />
+      <AirlinesIcon aria-label="Menu Icon" />
     </Box>
   );
 

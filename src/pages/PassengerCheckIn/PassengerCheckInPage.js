@@ -66,8 +66,6 @@ const PassengerCheckInPage = () => {
   const fetchData = async (flightId) => {
     await getCheckInPassengersByFlight(flightId).then((response) => {
       if (response) {
-        // eslint-disable-next-line no-debugger
-        debugger;
         setData(response);
       }
     });
@@ -83,8 +81,6 @@ const PassengerCheckInPage = () => {
   };
 
   const onRowUpdating = async (e) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     const initialServiceList = { ...e.oldData };
     const updatedService = Object.assign({}, initialServiceList, { ...e.newData });
     await saveCheckInPassenger(updatedService)
@@ -95,8 +91,6 @@ const PassengerCheckInPage = () => {
   };
 
   const onRowRemoving = async (e) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     const { id } = e.data;
     await deleteCheckInPassenger(id)
       .then((response) => {

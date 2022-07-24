@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -5,8 +6,7 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { Button, Box, Link, Drawer, Typography, Avatar } from '@mui/material';
-// mock
-import account from '../../_mock/account';
+
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 // components
@@ -18,6 +18,7 @@ import navConfig from './NavConfig';
 
 import { logOutApp } from '../../redux/actions/userAction';
 // ----------------------------------------------------------------------
+import ProfileImage from '../../assets/avatar.jpg';
 
 const DRAWER_WIDTH = 280;
 
@@ -51,9 +52,6 @@ const DashboardSidebar = ({ auth, isOpenSidebar, onCloseSidebar }) => {
   }, [pathname]);
 
   const handleLogout = () => {
-    // eslint-disable-next-line no-debugger
-    // debugger;
-    // e.preventDefault();
     logOutApp();
     localStorage.clear();
     navigate('/login');
@@ -77,13 +75,13 @@ const DashboardSidebar = ({ auth, isOpenSidebar, onCloseSidebar }) => {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={ProfileImage} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                 {users && users?.name}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+                {/* {account.role} */}
               </Typography>
             </Box>
           </AccountStyle>
@@ -92,7 +90,13 @@ const DashboardSidebar = ({ auth, isOpenSidebar, onCloseSidebar }) => {
 
       <NavSection navConfig={navConfig} />
       <Box sx={{ mt: 2, mb: 5, mx: 2.5 }}>
-        <Button fullWidth variant="contained" color="error" disableElevation onClick={handleLogout}>
+        <Button
+          fullWidth
+          variant="contained"
+          color="error"
+          disableElevation
+          onClick={handleLogout}
+          aria-label="Logout">
           Logout
         </Button>
       </Box>
@@ -107,7 +111,8 @@ const DashboardSidebar = ({ auth, isOpenSidebar, onCloseSidebar }) => {
           onClose={onCloseSidebar}
           PaperProps={{
             sx: { width: DRAWER_WIDTH }
-          }}>
+          }}
+          aria-label="Drawer">
           {renderContent}
         </Drawer>
       )}
@@ -122,7 +127,8 @@ const DashboardSidebar = ({ auth, isOpenSidebar, onCloseSidebar }) => {
               bgcolor: 'background.default',
               borderRightStyle: 'dashed'
             }
-          }}>
+          }}
+          aria-label="Drawer">
           {renderContent}
         </Drawer>
       )}

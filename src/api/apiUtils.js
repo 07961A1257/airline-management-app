@@ -1,5 +1,5 @@
-/* eslint-disable no-debugger */
 export async function handleResponse(response) {
+  // eslint-disable-next-line no-debugger
   debugger;
   if (response.statusText === 'OK' || response.statusText === 'Created') return response.data;
   if (response.status === 400) {
